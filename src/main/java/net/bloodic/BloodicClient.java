@@ -1,0 +1,57 @@
+package net.bloodic;
+
+import org.lwjgl.glfw.GLFW;
+
+import net.bloodic.hack.Hack;
+import net.bloodic.hack.HackManager;
+import net.fabricmc.api.ModInitializer;
+import net.minecraft.client.MinecraftClient;
+
+public class BloodicClient implements ModInitializer{
+	
+	private static boolean initialized;
+	private static boolean DEBUG = false;
+	
+	public static BloodicClient INSTANCE;
+	public static MinecraftClient MC;
+	private HackManager hackManager;
+	
+	@Override
+	public void onInitialize(){
+		if(initialized)
+			throw new RuntimeException(
+				"BloodicClient.onInitialize() ran twice!");
+		initialized = true;
+		DEBUG = true; // for now
+		
+		System.out.println("Starting Bloodic Client...");
+		
+		INSTANCE = this;
+		MC = MinecraftClient.getInstance();
+		hackManager = new HackManager(this);
+	}
+	
+	public HackManager getHackManager(){
+		return hackManager;
+	}
+	
+	public static boolean isDEBUG(){
+		return DEBUG;
+	}
+	
+	public void onKeyPress(int key, int action){
+		if(action == GLFW.GLFW_PRESS){
+			for(Hack hack : hackManager.getHacks()){
+				if(key == hack.getKey()) hack.toggle();
+			}
+		}
+	}
+	
+	public void onUpdate(){
+		if(MC.player != null){
+			for(Hack hack : hackManager.getEnabledHacks()){
+				hack.onUpdate();
+			}
+		}
+	}
+}

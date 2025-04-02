@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "bloodic",
+  "version": "${version}",
+
+  "name": "Bloodic Client",
+  "description": "Bloody!",
+  "authors": [
+    "scher"
+  ],
+  "contact": {
+    "homepage": "https://github.com/nxpinhum5326/BloodicClient",
+    "sources": "https://github.com/nxpinhum5326/BloodicClient"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/modid/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.bloodic.BloodicClient"
+    ]
+  },
+  "mixins": [
+    "bloodic.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.19",
+    "fabric-api": "*",
+    "minecraft": "~1.19.2",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
