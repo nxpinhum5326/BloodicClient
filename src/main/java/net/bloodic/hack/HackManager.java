@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.bloodic.BloodicClient;
+import net.bloodic.hacks.AutoSprint;
 import net.bloodic.hacks.Flight;
 
 public class HackManager{
@@ -29,5 +30,6 @@ public class HackManager{
 	
 	private void addHacks(){
 		hacks.add(new Flight());
+		hacks.add(new AutoSprint());
 	}
 }

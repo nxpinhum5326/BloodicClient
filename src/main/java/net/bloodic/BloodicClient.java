@@ -4,8 +4,10 @@ import org.lwjgl.glfw.GLFW;
 
 import net.bloodic.hack.Hack;
 import net.bloodic.hack.HackManager;
+import net.bloodic.hud.InGameHud;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.math.MatrixStack;
 
 public class BloodicClient implements ModInitializer{
 	
@@ -15,6 +17,7 @@ public class BloodicClient implements ModInitializer{
 	public static BloodicClient INSTANCE;
 	public static MinecraftClient MC;
 	private HackManager hackManager;
+	private InGameHud inGameHud;
 	
 	@Override
 	public void onInitialize(){
@@ -29,6 +32,7 @@ public class BloodicClient implements ModInitializer{
 		INSTANCE = this;
 		MC = MinecraftClient.getInstance();
 		hackManager = new HackManager(this);
+		inGameHud = new InGameHud();
 	}
 	
 	public HackManager getHackManager(){
@@ -37,6 +41,10 @@ public class BloodicClient implements ModInitializer{
 	
 	public static boolean isDEBUG(){
 		return DEBUG;
+	}
+	
+	public void onRenderGUI(MatrixStack matrices, float partialTicks){
+		inGameHud.renderGUI(matrices, partialTicks);
 	}
 	
 	public void onKeyPress(int key, int action){
